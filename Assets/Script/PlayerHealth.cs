@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,10 +9,9 @@ public class PlayerHealth : MonoBehaviour
 
     public float invincibilityDuration = 1f; 
     private bool isInvincible = false;
-
     private Animator animator;
-
     private GameManager gameManager;
+    public Image[] hearts;
     void Start()
     {
         currentHealth = maxHealth;
@@ -39,10 +39,13 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            UpdateHeartDisplay();
             Die();
+            
         }
         else
         {
+            UpdateHeartDisplay();
             StartCoroutine(InvincibilityCoroutine());
         }
     }
@@ -71,5 +74,13 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = true;
         yield return new WaitForSeconds(invincibilityDuration);
         isInvincible = false;
+    }
+
+    void UpdateHeartDisplay()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].enabled = (i < currentHealth); 
+        }
     }
 }
