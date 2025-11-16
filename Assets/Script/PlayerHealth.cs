@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public Text displayTextField;
     public int maxHealth = 3; 
     private int currentHealth;
 
@@ -12,11 +13,13 @@ public class PlayerHealth : MonoBehaviour
     private Animator animator;
     private GameManager gameManager;
     public Image[] hearts;
+    public GameObject gameover;
     void Start()
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>(); 
         gameManager = GameManager.instance;
+        gameover.SetActive(false);
     }
 
     void Update()
@@ -64,7 +67,11 @@ public class PlayerHealth : MonoBehaviour
 
         if (gameManager != null)
         {
-            gameManager.GameOver(); 
+            gameManager.GameOver();
+            gameover.SetActive(true);
+            int score = gameManager.score;
+            displayTextField.text = "Your score is: " + score;
+
         }
         Destroy(gameObject, 2f);
     }

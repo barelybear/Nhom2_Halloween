@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public int streakMultiplier = 2;  
     public int streakTimeLimit = 2; 
 
-    private int score = 0;
+    public int score = 0;
     private int currentStreak = 0;
     private float currentStreakTimer = 2;
 
